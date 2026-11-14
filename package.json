@@ -1,0 +1,43 @@
+{
+  "name": "caliper-batch-trace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "刹车卡钳批次谱系、双向追溯与召回模拟系统",
+  "scripts": {
+    "dev": "concurrently -k -n SERVER,WEB -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "tsx watch server/src/index.ts",
+    "dev:client": "vite",
+    "setup": "npm run seed && npm run ingest && npm run verify",
+    "seed": "tsx server/src/sim/run.ts",
+    "ingest": "tsx server/src/ingest/run.ts",
+    "verify": "tsx server/src/trace/validate-cli.ts",
+    "validate": "tsx server/src/trace/validate-cli.ts",
+    "build": "npm run typecheck && vite build",
+    "start": "tsx server/src/index.ts",
+    "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.client.json --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "docx": "^9.0.2",
+    "express": "^4.21.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  }
+}
